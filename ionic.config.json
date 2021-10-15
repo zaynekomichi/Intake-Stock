@@ -1,0 +1,7 @@
+{
+  "name": "Intake Stock",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

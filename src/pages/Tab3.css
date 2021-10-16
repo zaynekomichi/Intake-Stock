@@ -1,0 +1,40 @@
+.center_image{
+	text-align: center;
+	justify-content: center;
+	margin: 10px;
+}
+
+.general_text{
+	margin-top: 5px;
+	color: #00aeff;
+}
+
+.general_shadow{
+	box-shadow: 0px 1px 8px 0px;
+	border-radius: 7px;
+	margin: 10px;
+}
+.generalAlignment{
+	box-shadow: 0px 1px 8px 0px;
+	border-radius: 7px;
+	margin: 10px;
+	display: flex;
+	align-items: center;
+}
+
+.general_list_styling{
+	border-radius: 17px;
+}
+
+.generalLabel{
+	padding-left: 10px;
+}
+.item:hover{
+	transition: 0.6s;
+	transform: scale(1.04);
+}
+
+.generalIconSize{
+	font-size: 80px;
+	color: #00aeff;
+}

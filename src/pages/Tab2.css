@@ -1,0 +1,33 @@
+.cards_row{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+	box-shadow: 0px 1px 5px 0px grey;
+	margin: 10px;
+	border-radius: 7px;
+}
+
+.cards_row:hover,.BigShadow div:hover{
+	transition: 0.5s;
+	transform: scale(1.02);
+}
+
+.BigShadow{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+.BigShadow div{
+	box-shadow: 0px 1px 5px 0px grey;
+	width: 45%;
+	border-radius: 7px;
+	padding: 10px;
+}
+
+#CheckoutList{
+	box-shadow: 0px 1px 5px 0px grey;
+	border-radius: 9px;
+	margin: 8px;
+}

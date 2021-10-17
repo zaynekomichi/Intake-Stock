@@ -1,0 +1,25 @@
+/*file: src/Home.css*/
+
+.hideBg::part(background) {
+    display: none;
+  }
+  
+  .start-scan-button {
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .scan-box {
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
+    display: block;
+    left: 50%;
+    height: 70vw;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 70vw;
+  }

@@ -1,0 +1,29 @@
+.generalCard{
+	padding: 5px;
+
+}
+.cardInput{
+	padding-left: 10px;
+	padding-top: 2px;
+	margin-top: 10px;
+	border-radius: 7px;
+	border:  1px solid grey;
+}
+
+.generalBtn{
+	display: flex;
+	justify-content: center;
+}
+
+.flexGeneral{
+	font-size: 19px;
+	margin-top: 20px;
+	margin-bottom: 15px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.Notes{
+	font-size: 18px;
+}

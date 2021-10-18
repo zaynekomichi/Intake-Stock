@@ -1,8 +1,33 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonContent,IonAlert,IonList,IonItem,IonLabel, IonHeader, IonPage, IonTitle, IonToolbar,IonButton } from '@ionic/react';
+import { IonContent,IonAlert,IonList,IonItem,IonLabel,useIonViewWillEnter, IonHeader, IonPage, IonTitle, IonToolbar,IonButton } from '@ionic/react';
+import {useState,useEffect} from 'react';
+import axios from 'axios';
 import './Tab2.css';
 
 const Tab2: React.FC = () => {
+  const [showAlert,setAlert] = useState(false);
+  const [allData,setData] = useState([]);
+  const [viewError,setError] = useState<string>("");
+   const [name,setName] = useState<string>("");
+  const [quantity,setQuantity] = useState<number>();
+  const [code,setCode] = useState<string>("");
+  const [tdate,setDate] = useState<string>("");
+  const [ttime,setTime] = useState<string>("");
+  useIonViewWillEnter(() => {
+    axios.get('http://192.168.1.23/App_Data/InventoryHistory.php',{
+      params:{
+        getData:1,
+      },
+    })
+    .then((response:any)=>{
+      setData(response.data);
+      console.log(allData)
+      setError("");
+    })
+    .catch((error:any)=>{
+      setError("Server is offline");
+    });
+  });
   return (
     <IonPage>
       <IonHeader>
@@ -44,26 +69,45 @@ const Tab2: React.FC = () => {
             </div>
             <h4>Checkout List</h4>
             <div id="CheckoutList">
-              <IonList>
-                <IonItem>
-                  <IonLabel>Senzeni Took 2qty of Magnesum oxide</IonLabel>
-                </IonItem>
-                <IonItem>
-                  <IonLabel>Trina Took 10 qty of Magnesum sulphate</IonLabel>
-                </IonItem>
-                <IonItem>
-                  <IonLabel>Kirtsy Took 34 qty of Antredipozol</IonLabel>
-                </IonItem>
-                <IonItem>
-                  <IonLabel>Mr Repo Took 2 qty of Doplomethazine</IonLabel>
-                </IonItem>
-                <IonItem>
-                  <IonLabel>Senzeni Took 2 qty of Magnesum sulphate</IonLabel>
-                </IonItem>
+              <IonList className="roundList">
+              {allData.map((items:any)=>{
+                return(
+                  <IonItem key={items.id} onClick = {()=>{
+                    setName(items.productName);
+                    setCode(items.Code);
+                    setQuantity(items.Quantity);
+                    setDate(items.TakeoutDate);
+                    setTime(items.TakeoutTime);
+                    setAlert(true);
+                  }}>
+                    <IonLabel>User took {items.Quantity} quntities  of {items.productName}</IonLabel>
+                  </IonItem>
+                  );
+              })}
               </IonList>
             </div>
           </div>
         </div>
+        <IonAlert
+      isOpen={showAlert}
+      header={name}
+      message={`
+      Product Code ${code} <br/>
+      User took ${quantity} quantities <br/>
+      Date Taken ${tdate} <br />
+      Time Taken ${ttime} 
+      `}
+      buttons={[
+         {
+          text:'OK',
+          role:'redirect',
+          handler: redirect=>{
+            setAlert(false);
+          }
+        }
+        ]}
+        
+      />
       </IonContent>
     </IonPage>
   );

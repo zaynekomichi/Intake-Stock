@@ -18,9 +18,11 @@ import {flaskSharp,calendar,cart,clipboard,storefront,qrCode,search} from 'ionic
 import {useState,useEffect} from 'react';
 import {useForm,Controller} from 'react-hook-form';
 import axios from 'axios';
+import { Redirect, Route,useHistory } from 'react-router-dom';
 import './Tab1.css';
 
 const Tab1: React.FC = () => {
+  const history = useHistory();
   const [searchv, setSearch] = useState<string>("");
   const [showAlert,setAlert] = useState(false);
   const [name,setName] = useState<string>("");
@@ -40,6 +42,10 @@ const Tab1: React.FC = () => {
     reValidateMode:"onChange"
   });
   useIonViewWillEnter(() => {
+    const user = localStorage.getItem('user');
+    if(user===null){
+      history.push("/login");
+    }
     axios.get('http://192.168.1.23/App_Data/Inventory.php',{
       params:{
         getData:1,

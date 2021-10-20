@@ -30,15 +30,23 @@
     border-radius: 7px;
     margin-top: 5px;
     padding-left: 10px;
+    width: 350px;
   }
 
   .Ion_Input:hover{
     border:  2px solid #00aeff;
   }
 
+  .AddNew{
+     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+  }
+
   .general_Padding{
     margin: 10px;
-    padding-bottom: 30px;
+    padding-bottom: 5px;
   }
 
   .general_padding{

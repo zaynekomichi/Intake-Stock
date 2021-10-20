@@ -54,13 +54,15 @@ const {register,handleSubmit,formState:{errors}} = useForm({
     setAmountLeftData(NewQuantity);
     setAlert(true);
   }
-  const sendData = ()=>{    
+  const sendData = ()=>{   
+  let user:any = localStorage.getItem('user'); 
     axios.get('http://192.168.1.23/App_Data/InventoryMulti.php',{
       params:{
         Withdraw:1,
         id:idData,
         taken:amountData,
         remaining:remainingData,
+        user:user,
       }
     }).then((response)=>{
       if(response.data === 1){

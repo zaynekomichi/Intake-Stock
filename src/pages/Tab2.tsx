@@ -1,10 +1,13 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonContent,IonAlert,IonList,IonItem,IonLabel,useIonViewWillEnter, IonHeader, IonPage, IonTitle, IonToolbar,IonButton } from '@ionic/react';
 import {useState,useEffect} from 'react';
+import { useHistory } from 'react-router-dom';
+
 import axios from 'axios';
 import './Tab2.css';
 
 const Tab2: React.FC = () => {
+  const history = useHistory();
   const [showAlert,setAlert] = useState(false);
   const [allData,setData] = useState([]);
   const [viewError,setError] = useState<string>("");
@@ -14,6 +17,10 @@ const Tab2: React.FC = () => {
   const [tdate,setDate] = useState<string>("");
   const [ttime,setTime] = useState<string>("");
   useIonViewWillEnter(() => {
+    const user = localStorage.getItem('user');
+    if(user===null){
+      history.push("/login");
+    }
     axios.get('http://192.168.1.23/App_Data/InventoryHistory.php',{
       params:{
         getData:1,
@@ -80,7 +87,7 @@ const Tab2: React.FC = () => {
                     setTime(items.TakeoutTime);
                     setAlert(true);
                   }}>
-                    <IonLabel>User took {items.Quantity} quntities  of {items.productName}</IonLabel>
+                    <IonLabel>{items.User} took {items.Quantity} quantities  of {items.productName}</IonLabel>
                   </IonItem>
                   );
               })}

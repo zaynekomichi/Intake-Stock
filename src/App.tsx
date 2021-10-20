@@ -14,6 +14,7 @@ import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
 import Scan from './pages/scan';
+import Login from './pages/login';
 import ScanNew from './pages/scanNew';
 import AddNew from './components/addnew';
 import EditItem from './components/edititem';
@@ -57,6 +58,9 @@ const App: React.FC = () => (
           <Route exact path="/scan">
             <Scan />
           </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
           <Route exact path="/scanNew">
           <ScanNew/>
           </Route>
@@ -73,7 +77,7 @@ const App: React.FC = () => (
             <EditItem />
           </Route>
           <Route exact path="/">
-            <Redirect to="/tab1" />
+            <Redirect to="/Login" />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">

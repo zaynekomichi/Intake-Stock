@@ -27,6 +27,7 @@ import {Storage} from '@capacitor/storage'
 
 const AddNew: React.FC = () => {
   let history:any = useHistory();
+  let user:any = localStorage.getItem('user');
   const {register,handleSubmit,formState:{errors}} = useForm({
     mode:"onTouched",
     reValidateMode:"onChange"
@@ -51,7 +52,7 @@ const AddNew: React.FC = () => {
       </IonToolbar>
     </IonHeader>
       <IonContent>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="AddNew" onSubmit={handleSubmit(onSubmit)}>
       <div className="general_Padding">
         <IonInput {...register("productName",{required:true})} type="text" placeholder="Product Name"   id='productName'  className="Ion_Input"/>
         {errors.productName && <IonBadge color="danger" className="general_padding">Product Name is required</IonBadge>}
@@ -65,7 +66,7 @@ const AddNew: React.FC = () => {
         {errors.provider && <IonBadge color="danger" className="general_padding">Provider Name is required</IonBadge>}
        </div>
        <div className="general_Padding">
-         <IonInput {...register("receivedBy",{required:true})} type="text" placeholder="Received By"  id='receivedBy'className="Ion_Input"/>
+         <IonInput {...register("receivedBy")} type="text" placeholder="Received By"  readonly id='receivedBy'className="Ion_Input" value={user} />
         {errors.receivedBy && <IonBadge color="danger" className="general_padding">Person who received items is required</IonBadge>}
        </div>
         <div className="general_Padding">

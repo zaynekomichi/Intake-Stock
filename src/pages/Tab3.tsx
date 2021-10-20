@@ -1,11 +1,21 @@
-import { IonContent,IonIcon, IonHeader, IonPage, IonTitle, IonToolbar, IonSearchbar,IonText,IonList,IonItem,IonLabel } from '@ionic/react';
+import { IonContent,IonIcon, IonHeader,useIonViewWillEnter, IonPage, IonTitle, IonToolbar, IonSearchbar,IonText,IonList,IonItem,IonLabel } from '@ionic/react';
 import {settings,person,personCircle, cloudDownload,helpCircle,informationCircle, analytics,documentText,flash} from 'ionicons/icons';
+import {useState,useEffect} from 'react';
+import { useHistory } from 'react-router-dom';
 import './Tab3.css';
 
 const Tab3: React.FC = () => {
-  let state = {
-    name:"User",
-  }
+  const [user,setUser]=useState<string>("");
+  const history = useHistory();
+  useIonViewWillEnter(() => {
+    const user = localStorage.getItem('user');
+    if(user===null){
+      history.push("/login");
+    }else{
+      setUser(user);
+    }
+  });
+  
   return (
     <IonPage>
       <IonHeader>
@@ -19,7 +29,7 @@ const Tab3: React.FC = () => {
         <IonIcon icon={personCircle}  className='generalIconSize'/>
       </div>
       <div>
-        <IonText className="general_text">Hello {state.name}</IonText>
+        <IonText className="general_text">Hello {user}</IonText>
       </div>
       </div>
       <div className="general_shadow"> 

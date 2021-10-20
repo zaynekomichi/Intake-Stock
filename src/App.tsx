@@ -18,6 +18,7 @@ import ScanNew from './pages/scanNew';
 import AddNew from './components/addnew';
 import EditItem from './components/edititem';
 import Withdraw from './components/withDrawItem';
+import Restock from './components/restockScan';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -64,6 +65,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/withDrawItem">
             <Withdraw />
+          </Route>
+          <Route exact path="/restockScan">
+            <Restock />
           </Route>
           <Route exact path="/edititem">
             <EditItem />

@@ -1,4 +1,27 @@
 .alignGeneral{
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
+	text-align: center;
+}
+
+form{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-right: 10px;
+	margin-left: 5px;
+}
+
+.searchBtn{
+	margin-top: 10px;
+}
+.top-search{
+	box-shadow: 0px 1px 5px 0px grey;
+	border-color: white;
+}
+
+.Margins{
+	margin-left: 5px;
+	margin-right: 5px;
 }

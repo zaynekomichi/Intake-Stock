@@ -1,4 +1,4 @@
-import { IonContent,IonIcon, IonHeader,useIonViewWillEnter, IonPage, IonTitle, IonToolbar, IonSearchbar,IonText,IonList,IonItem,IonLabel } from '@ionic/react';
+import { IonContent,IonIcon,IonButton, IonHeader,useIonViewWillEnter, IonPage, IonTitle, IonToolbar, IonSearchbar,IonText,IonList,IonItem,IonLabel } from '@ionic/react';
 import {settings,person,personCircle, cloudDownload,helpCircle,informationCircle, analytics,documentText,flash} from 'ionicons/icons';
 import {useState,useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
@@ -15,6 +15,11 @@ const Tab3: React.FC = () => {
       setUser(user);
     }
   });
+
+  const logout=()=>{
+    localStorage.removeItem('user');
+    history.push("/login");
+  }
   
   return (
     <IonPage>
@@ -23,50 +28,20 @@ const Tab3: React.FC = () => {
           <IonTitle>User</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
+      <IonContent fullscreen className="background">
       <div className="generalAlignment">
       <div>
-        <IonIcon icon={personCircle}  className='generalIconSize'/>
+        <img src="./assets/media/logout.png" alt="" />
       </div>
       <div>
         <IonText className="general_text">Hello {user}</IonText>
       </div>
+      <div>
+        <IonText>Please logout when you are done using the application to protect your account</IonText>
       </div>
-      <div className="general_shadow"> 
-        <IonList className="general_list_styling">
-          <IonItem>
-            <IonIcon icon={settings}/>
-            <IonLabel className="generalLabel"> Settings</IonLabel>
-          </IonItem>
-           <IonItem>
-           <IonIcon icon={person}/>
-            <IonLabel className="generalLabel"> Account Info</IonLabel>
-          </IonItem>
-           <IonItem>
-           <IonIcon icon={cloudDownload}/>
-            <IonLabel className="generalLabel">Data Recovery</IonLabel>
-          </IonItem>
-           <IonItem>
-           <IonIcon icon={helpCircle}/>
-            <IonLabel className="generalLabel">How to use app</IonLabel>
-          </IonItem>
-           <IonItem>
-           <IonIcon icon={informationCircle}/>
-            <IonLabel className="generalLabel">FAQ</IonLabel>
-          </IonItem>
-           <IonItem>
-           <IonIcon icon={analytics}/>
-            <IonLabel className="generalLabel">App Usage</IonLabel>
-          </IonItem>
-          <IonItem>
-          <IonIcon icon={documentText}/>
-            <IonLabel className="generalLabel">License</IonLabel>
-          </IonItem>
-           <IonItem>
-           <IonIcon icon={flash}/>
-            <IonLabel className="generalLabel">About</IonLabel>
-          </IonItem>
-        </IonList>
+      <div>
+        <IonButton className="btn" onClick={()=>{logout()}}>LOGOUT</IonButton>
+      </div>
       </div>
       </IonContent>
     </IonPage>

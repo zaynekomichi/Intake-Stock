@@ -15,6 +15,7 @@ const Tab2: React.FC = () => {
   const [quantity,setQuantity] = useState<number>();
   const [code,setCode] = useState<string>("");
   const [tdate,setDate] = useState<string>("");
+  const [username,setUser] = useState<string>("");
   const [ttime,setTime] = useState<string>("");
   useIonViewWillEnter(() => {
     const user = localStorage.getItem('user');
@@ -82,6 +83,7 @@ const Tab2: React.FC = () => {
                   <IonItem key={items.id} onClick = {()=>{
                     setName(items.productName);
                     setCode(items.Code);
+                    setUser(items.User);
                     setQuantity(items.Quantity);
                     setDate(items.TakeoutDate);
                     setTime(items.TakeoutTime);
@@ -100,7 +102,7 @@ const Tab2: React.FC = () => {
       header={name}
       message={`
       Product Code ${code} <br/>
-      User took ${quantity} quantities <br/>
+      ${username} took ${quantity} quantities <br/>
       Date Taken ${tdate} <br />
       Time Taken ${ttime} 
       `}

@@ -18,7 +18,10 @@ const {register,handleSubmit,formState:{errors}} = useForm({
 const [codeValue,setCode] = useState<string>("");
 const history = useHistory();
 useIonViewWillEnter(() => {
-    setCode("");
+  setCode("");
+  if(localStorage.getItem('user')!==null){
+   history.push("/tab1"); 
+  }
 });
 const onSubmit=(data:any)=>{
   const code = data.code;

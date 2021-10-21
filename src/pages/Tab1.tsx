@@ -93,7 +93,7 @@ const Tab1: React.FC = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="align_search">
         <IonInput type="search" {...register("productName",{required:true})} onIonChange={e => setSearch(e.detail.value!)} name="productName" value={searchv} 
         placeholder="search" className="top-search"/>
-        <IonButton type="submit"><IonIcon icon={search}/></IonButton>
+        <IonButton type="submit" className="sbtn"><IonIcon icon={search}/></IonButton>
         </form>
         {errors.productName && <IonBadge color="danger" className="general_padding">Product Name is required</IonBadge>}
         <div id="inv_main">

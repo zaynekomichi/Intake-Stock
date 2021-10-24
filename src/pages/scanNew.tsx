@@ -59,8 +59,10 @@ const startScan = async () => {
     .then((response:any)=>{
       if(response.data==1){
         setAlert(true);
+      }else if(response.data==2){
+        alert("! Duplicate, can not have different items with the same code");
       }else{
-        alert("Failed!")
+        alert("Failed")
       }
     })
     .catch((error:any)=>{

@@ -11,6 +11,10 @@
     top: 50%;
     transform: translate(-50%, -50%);
   }
+
+  .IonSelect{
+    border: 1px solid grey;
+  }
   
   .scan-box {
     border: 2px solid #fff;

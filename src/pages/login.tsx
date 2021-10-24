@@ -50,13 +50,7 @@ const onSubmit=(data:any)=>{
 }
 return ( 
  <IonPage>
-  <IonHeader>
-    <IonToolbar>
-      <IonTitle>Login</IonTitle>
-    </IonToolbar>
-  </IonHeader>
   <IonContent>
-    <IonCard>
       <img src="./assets/media/Login.png" alt=""/>
       <div className="login_page">
       <form onSubmit={handleSubmit(onSubmit)} className="login_form">
@@ -64,7 +58,6 @@ return (
         <IonButton type="submit" className="login_btn">Login</IonButton>
       </form>
       </div>
-    </IonCard>
   </IonContent>
   </IonPage>
 );

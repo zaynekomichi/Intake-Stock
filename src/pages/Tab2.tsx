@@ -70,8 +70,13 @@ const Tab2: React.FC = () => {
               </div>
               <div>
               <IonButton href='/edititem'>
-                <img src="./assets/media/down.png" alt=""/>
                 <p>Restock</p>
+              </IonButton>
+              </div>
+              <div>
+              <IonButton href='/withDraw'>
+                <img src="./assets/media/down.png" alt=""/>
+                <p>Withdraw</p>
               </IonButton>
               </div>
             </div>

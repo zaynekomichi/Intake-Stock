@@ -139,13 +139,13 @@ const Take: React.FC = () => {
          <IonAlert
       isOpen={showPrompt}
       header={'Quantity'}
-      message={`Enter stock amount`}
+      message={`Enter stock quantity`}
       inputs={[
         {
           name:'Quantity',
           type:'number',
           max:quantity,
-          placeholder:'Enter number of items to restock',
+          placeholder:'Enter number of items to take',
           min:1,
         }
         ]}

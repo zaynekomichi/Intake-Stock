@@ -18,7 +18,8 @@ import { Redirect, Route,useHistory } from 'react-router-dom';
 import { scanOutline, stopCircleOutline } from "ionicons/icons"
 import {useEffect, useState} from "react";
 import axios from 'axios';
-import '../pages//scan.css';
+import {address} from './AddressService';
+import '../pages/scan.css';
 const Restock: React.FC = ()=> {
 let history:any = useHistory();
 let id:any = localStorage.getItem('id');
@@ -39,7 +40,7 @@ const startScan = async () => {
     console.log(result.content)
     let code:any = result.content;
     let quantity:any = localStorage.getItem('quantity');
-      axios.get('http://192.168.1.23/App_Data/InventoryUpdate.php',{
+      axios.get(`${address}App_Data/InventoryUpdate.php`,{
       params:{
         restock:1,
         id:id,
@@ -50,6 +51,7 @@ const startScan = async () => {
     .then((response:any)=>{
       if(response.data==1){
         setAlert(true);
+        localStorage.removeItem('quantity');
       }else{
         alert("Failed!")
       }
@@ -77,8 +79,8 @@ useEffect(() => {
         return true
       }
       return false
-     } catch (err) {
-       console.log(err)
+     } catch (Error) {
+       setErr("Not Implemented in web version");
       }
   }
 

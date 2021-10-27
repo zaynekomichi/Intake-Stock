@@ -18,6 +18,7 @@ import {
   IonAlert,useIonAlert
  } from '@ionic/react';
 import axios from 'axios';
+import {address} from './AddressService';
 import { scanOutline, stopCircleOutline } from "ionicons/icons";
 import {useHistory,Route,Redirect} from 'react-router-dom';
 import {useForm,Controller} from 'react-hook-form';
@@ -56,7 +57,7 @@ const {register,handleSubmit,formState:{errors}} = useForm({
   }
   const sendData = ()=>{   
   let user:any = localStorage.getItem('user'); 
-    axios.get('http://192.168.1.23/App_Data/InventoryMulti.php',{
+    axios.get(`${address}App_Data/InventoryMulti.php`,{
       params:{
         Withdraw:1,
         id:idData,

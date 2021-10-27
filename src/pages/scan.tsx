@@ -14,6 +14,7 @@ import {
   useIonAlert
  } from '@ionic/react';
 import axios from 'axios';
+import {address} from '../components/AddressService';
 import {useHistory} from 'react-router-dom';
 import { scanOutline, stopCircleOutline } from "ionicons/icons"
 import {useEffect, useState} from "react";
@@ -36,7 +37,7 @@ const startScan = async () => {
   if (result.hasContent) {
     let code:any = result.content;
     setData(code);
-    axios.get('http://192.168.1.23/App_Data/GetInventory.php',{
+    axios.get(`${address}App_Data/GetInventory.php`,{
       params:{
         getCodeItem:1,
         code:code,
@@ -83,7 +84,7 @@ useEffect(() => {
       return false
      } catch (Error) {
        setErr("Not implemented in web version")
-       console.log(Error)
+       //console.log(Error)
       }
   }
 

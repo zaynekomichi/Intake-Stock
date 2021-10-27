@@ -18,6 +18,7 @@ import { Redirect, Route,useHistory } from 'react-router-dom';
 import { scanOutline, stopCircleOutline } from "ionicons/icons"
 import {useEffect, useState} from "react";
 import axios from 'axios';
+import {address} from '../components/AddressService';
 import './scan.css';
 const ScanNew: React.FC = ()=> {
 let history:any = useHistory();
@@ -44,7 +45,7 @@ const startScan = async () => {
     let code:string = results.Scan;
     let notes:string = results.notes;
     let provider:string = results.provider;
-      axios.get('http://192.168.1.23/App_Data/InsertInventory.php',{
+      axios.get(`${address}App_Data/InsertInventory.php`,{
       params:{
         InsertData:1,
         productName:name,
@@ -89,7 +90,7 @@ useEffect(() => {
       }
       return false
      } catch (err) {
-       console.log(err)
+       //console.log(err)
       }
   }
 

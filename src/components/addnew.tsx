@@ -9,6 +9,8 @@ import {useForm,Controller} from 'react-hook-form';
 import axios from 'axios';
 import ScanNew from '../pages/scanNew';
 import {Storage} from '@capacitor/storage'
+import {address} from './AddressService';
+
 
 const AddNew: React.FC = () => {
   const [viewAlert,setAlert] = useState(false);
@@ -33,7 +35,7 @@ const AddNew: React.FC = () => {
     if(code==="Yes"){
       history.push("/scanNew");
     }else if(code==="No"){
-      axios.get('http://192.168.1.23/App_Data/InsertInventory.php',{
+      axios.get(`${address}App_Data/InsertInventory.php`,{
       params:{
         InsertData:1,
         productName:productName,

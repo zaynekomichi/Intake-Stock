@@ -5,6 +5,7 @@ import axios from 'axios';
 import {useEffect, useState} from "react";
 import {useForm,Controller} from 'react-hook-form';
 import {useHistory } from 'react-router-dom';
+import {address} from './AddressService';
 
 import './edititem.css';
 
@@ -29,7 +30,7 @@ const Take: React.FC = () => {
 
   const onSubmit =(data:any)=>{
     const userData:any = data.productName;
-    axios.get('http://192.168.1.23/App_Data/InventorySearch.php',{
+    axios.get(`${address}App_Data/InventorySearch.php`,{
       params:{
         getData:1,
         name:userData,
@@ -57,7 +58,7 @@ const Take: React.FC = () => {
       alert("Cant withdraw more than current amount");
       setPrompt(true);
     }else{
-     axios.get('http://192.168.1.23/App_Data/InventoryMulti.php',{
+     axios.get(`${address}App_Data/InventoryMulti.php`,{
       params:{
         Withdraw:1,
         id:id,

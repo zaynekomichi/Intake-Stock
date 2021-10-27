@@ -19,6 +19,7 @@ import {useState,useEffect} from 'react';
 import {useForm,Controller} from 'react-hook-form';
 import axios from 'axios';
 import { Redirect, Route,useHistory } from 'react-router-dom';
+import {address} from '../components/AddressService';
 import './Tab1.css';
 
 const Tab1: React.FC = () => {
@@ -46,7 +47,7 @@ const Tab1: React.FC = () => {
     if(user===null){
       history.push("/login");
     }
-    axios.get('http://192.168.1.23/App_Data/Inventory.php',{
+    axios.get(`${address}App_Data/Inventory.php`,{
       params:{
         getData:1,
       },
@@ -62,7 +63,7 @@ const Tab1: React.FC = () => {
 
   const onSubmit = (data:any) =>{
     const userData:any = data.productName;
-    axios.get('http://192.168.1.23/App_Data/InventorySearch.php',{
+    axios.get(`${address}App_Data/InventorySearch.php`,{
       params:{
         getData:1,
         name:userData,

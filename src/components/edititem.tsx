@@ -2,6 +2,7 @@ import {BarcodeScanner} from '@capacitor-community/barcode-scanner';
 import { IonButton,IonList,IonLabel,IonItem,IonButtons,IonContent,IonHeader,IonIcon,IonPage,IonInput,IonRow, IonText,IonBadge,IonTitle,IonToolbar,IonSearchbar} from '@ionic/react';
 import {calendar,cart,clipboard,storefront,qrCode, scanOutline, stopCircleOutline,search} from "ionicons/icons"
 import axios from 'axios';
+import {address} from './AddressService';
 import {useEffect, useState} from "react";
 import {useForm,Controller} from 'react-hook-form';
 import {useHistory } from 'react-router-dom';
@@ -27,7 +28,7 @@ const EditItem: React.FC = () => {
 
   const onSubmit =(data:any)=>{
     const userData:any = data.productName;
-    axios.get('http://192.168.1.23/App_Data/InventorySearch.php',{
+    axios.get(`${address}App_Data/InventorySearch.php`,{
       params:{
         getData:1,
         name:userData,

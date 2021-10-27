@@ -4,6 +4,7 @@ import {IonApp,IonPage,IonHeader,IonButton,useIonViewWillEnter,IonCard,IonToolba
 import { IonReactRouter } from '@ionic/react-router';
 import { personCircle,qrCode,scanOutline,fileTrayFullOutline } from 'ionicons/icons';
 import axios from 'axios';
+import {address} from '../components/AddressService';
 import {useState,useEffect} from 'react';
 import {useForm,Controller} from 'react-hook-form';
 import '@ionic/react/css/core.css';
@@ -25,7 +26,7 @@ useIonViewWillEnter(() => {
 });
 const onSubmit=(data:any)=>{
   const code = data.code;
-  axios.get('http://192.168.1.23/App_Data/Users.php',{
+  axios.get(`${address}App_Data/Users.php`,{
       params:{
         getUser:1,
         code:code,

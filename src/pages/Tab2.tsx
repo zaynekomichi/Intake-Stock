@@ -1,6 +1,7 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonContent,IonAlert,IonList,IonItem,IonLabel,useIonViewWillEnter, IonHeader, IonPage, IonTitle, IonToolbar,IonButton } from '@ionic/react';
 import {useState,useEffect} from 'react';
+import {address} from '../components/AddressService';
 import { useHistory } from 'react-router-dom';
 
 import axios from 'axios';
@@ -22,14 +23,13 @@ const Tab2: React.FC = () => {
     if(user===null){
       history.push("/login");
     }
-    axios.get('http://192.168.1.23/App_Data/InventoryHistory.php',{
+    axios.get(`${address}App_Data/InventoryHistory.php`,{
       params:{
         getData:1,
       },
     })
     .then((response:any)=>{
       setData(response.data);
-      console.log(allData)
       setError("");
     })
     .catch((error:any)=>{

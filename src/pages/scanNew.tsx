@@ -40,6 +40,7 @@ const startScan = async () => {
     results.Scan = result.content;
     let name:string = results.productName;
     let quantity:string = results.quantity;
+    let expireDate:string = results.expire;
     let receivedBy:string = results.receivedBy;
     let receiveDate:string = results.receiveDate;
     let code:string = results.Scan;
@@ -50,6 +51,7 @@ const startScan = async () => {
         InsertData:1,
         productName:name,
         quantity:quantity,
+        expireDate:expireDate,
         receivedBy:receivedBy,
         receiveDate:receiveDate,
         code:code,

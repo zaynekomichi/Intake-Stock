@@ -27,6 +27,7 @@ const Tab1: React.FC = () => {
   const [searchv, setSearch] = useState<string>("");
   const [showAlert,setAlert] = useState(false);
   const [name,setName] = useState<string>("");
+  const [exp,setExp] = useState<string>("");
   const [quantity,setQuantity] = useState<number>();
   const [code,setCode] = useState<string>("");
   const [provider,setProvider] = useState<string>("");
@@ -38,6 +39,7 @@ const Tab1: React.FC = () => {
   const [searchData,setSearchData] = useState<any>([]);
   const [viewError,setError] = useState<string>("");
   const [viewSearchError,setSearchError] = useState<string>("");
+  const TodaysDate = new Date();
   const {register,handleSubmit,formState:{errors}} = useForm({
     mode:"onTouched",
     reValidateMode:"onChange"
@@ -73,6 +75,7 @@ const Tab1: React.FC = () => {
       const data = response.data;
       if(data.length>0){
         setSearchData(data);
+        console.log(searchData);
       setSearchError("");
       }else{
          setSearchData(data);
@@ -130,6 +133,32 @@ const Tab1: React.FC = () => {
           {viewError}
           <IonList>
             {allData.map((items:any)=>{
+              let expiryDate:any = new Date(items.ExpireDate);
+              let currentDate:any =new Date();
+              let DateSub = expiryDate-currentDate;
+              if(DateSub<2548931590 && DateSub>0){
+                items.ExpireDate = <IonBadge className="textPadding" color="warning"><IonIcon icon={calendar}/>Expiring On {items.ExpireDate}</IonBadge>
+              }
+
+              if(TodaysDate>=new Date(items.ExpireDate)){
+                items.ExpireDate = <IonBadge className="textPadding" color="danger"><IonIcon icon={calendar}/>Expired On {items.ExpireDate}</IonBadge>
+              }
+              if(TodaysDate<new Date(items.ExpireDate)){
+                items.ExpireDate = <IonBadge className="textPadding" color="success"><IonIcon icon={calendar}/>Expiry On {items.ExpireDate}</IonBadge>
+              }
+
+              if(items.Quantity<=10 && items.Quantity>5){
+                items.Quantity = <IonBadge color="warning"><IonIcon icon={cart}/>{items.Quantity}</IonBadge>
+              }
+
+               if(items.Quantity<=5){
+                items.Quantity = <IonBadge color="danger"><IonIcon icon={cart}/>{items.Quantity}</IonBadge>
+              }
+
+              if(items.Quantity>10){
+                items.Quantity = <IonBadge color="success"><IonIcon icon={cart}/>{items.Quantity}</IonBadge>
+              }
+
               return(
                 
                   <div key={items.id} onClick={()=>{
@@ -150,16 +179,14 @@ const Tab1: React.FC = () => {
                     <br/>
                     <div className="itemsFlex">
                       <div>
-                        <IonIcon icon={cart}/>
-                        <IonText className="textPadding">{items.Quantity}</IonText>
+                        {items.Quantity}
                       </div>
                       <div>
                         <IonIcon icon={storefront}/>
                         <IonText className="textPadding">{items.Provider}</IonText>
                       </div>
                       <div>
-                        <IonIcon icon={calendar}/>
-                        <IonText className="textPadding">{items.ReceiveDate}</IonText>
+                        {items.ExpireDate}
                       </div> 
                     </div>
                   </div>

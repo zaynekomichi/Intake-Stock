@@ -1,6 +1,6 @@
 import {BarcodeScanner} from '@capacitor-community/barcode-scanner';
 import { personCircle,qrCode,scanOutline,fileTrayFullOutline,checkmarkDoneOutline } from 'ionicons/icons';
-import { IonSelect,IonSelectOption,IonButton,IonButtons,IonContent,IonHeader,IonIcon,IonPage,IonRow,IonText,IonTitle,IonToolbar,IonInput,IonTextarea,IonAlert,IonBadge,IonRouterOutlet} from '@ionic/react';
+import { IonSelect,IonLabel,IonSelectOption,IonButton,IonButtons,IonContent,IonHeader,IonIcon,IonPage,IonRow,IonText,IonTitle,IonToolbar,IonInput,IonTextarea,IonAlert,IonBadge,IonRouterOutlet} from '@ionic/react';
 import './addnew.css';
 import { IonReactRouter } from '@ionic/react-router';
 import {useState,useEffect} from 'react';
@@ -25,6 +25,7 @@ const AddNew: React.FC = () => {
   const onSubmit = (data:any) =>{
     const productName = data.productName;
     const quantity = data.quantity;
+    const expireDate = data.expire;
     const provider = data.provider;
     const receivedBy = data.receivedBy;
     const receiveDate = data.receiveDate;
@@ -40,6 +41,7 @@ const AddNew: React.FC = () => {
         InsertData:1,
         productName:productName,
         quantity:quantity,
+        expireDate:expireDate,
         receivedBy:receivedBy,
         receiveDate:receiveDate,
         code:"None",
@@ -76,8 +78,13 @@ const AddNew: React.FC = () => {
       </div>
       <div className="general_Padding">
         <IonInput {...register("quantity",{required:true})} type="number" placeholder="Quantity"  id='quantity'  className="Ion_Input"/>
-        {errors.quantity && <IonBadge color="danger" className="general_padding">Quantity is required</IonBadge>}
+        {errors.quantity && <IonBadge color="danger" className="general_padding">Quantity Is required</IonBadge>}
       </div>
+      <div className="general_Padding">
+        <IonLabel>Expiry Date</IonLabel>
+        <IonInput {...register("expire",{required:true})} type="date" id='provider' className="Ion_Input"/>
+        {errors.expire && <IonBadge color="danger" className="general_padding">Expiry Date is required</IonBadge>}
+       </div>
        <div className="general_Padding">
          <IonInput {...register("provider",{required:true})} type="text" placeholder="Provider" id='provider' className="Ion_Input"/>
         {errors.provider && <IonBadge color="danger" className="general_padding">Provider Name is required</IonBadge>}
@@ -91,7 +98,8 @@ const AddNew: React.FC = () => {
         {errors.receiveDate && <IonBadge color="danger" className="general_padding">Notes required, if none indicate none</IonBadge>}
       </div>
        <div className="general_Padding">
-        <IonInput {...register("receiveDate",{required:true})} type="date" placeholder="Stock Date"  id='receiveDate'  className="Ion_Input"/>
+       <IonLabel>Date Received</IonLabel>
+        <IonInput {...register("receiveDate",{required:true})} type="date"  id='receiveDate'  className="Ion_Input"/>
         {errors.receiveDate && <IonBadge color="danger" className="general_padding">Date of receival is required</IonBadge>}
       </div>
       <div className="general_Padding">

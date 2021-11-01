@@ -101,13 +101,18 @@ const Take: React.FC = () => {
         {results.map((items:any)=>{
           return(
             <IonItem key={items.id} onClick={()=>{
+                let expiryDate:any = new Date(items.ExpireDate);
+                let currentDate:any =new Date();
+                let DateSub:any = expiryDate-currentDate;
+                  if(new Date>=new Date(items.ExpireDate) || DateSub>0 && DateSub < 2548931590){
+                    alert("Item has expired or is about to expire. Please Restock as soon as possible");
+                  }
                   const userId = items.id;
                   const remaining = items.Quantity;
                   setQuantity(items.Quantity);
                   localStorage.setItem('id',userId);
                   localStorage.setItem('quantity',remaining);
                   setPrompt(true);
-
                   }}>
               <div className="ListItems">
                       <img src="./assets/media/pills.png" className="List_img" alt="" />

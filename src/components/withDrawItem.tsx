@@ -35,6 +35,15 @@ const [showAlert,setAlert] = useState(false);
 let WithdrawItems:any = localStorage.getItem('changeInventory');
 const Items = JSON.parse(WithdrawItems);
 let history:any = useHistory();
+const expire = Items.ExpireDate;
+const Error = ()=>{
+      let expiryDate:any = new Date(Items.ExpireDate);
+      let currentDate:any =new Date();
+      let DateSub = expiryDate-currentDate;
+      if(new Date>=new Date(Items.ExpireDate) || DateSub>0 && DateSub < 2548931590){
+        alert("Item has expired or is about to expire. Please Restock as soon as possible");
+      }
+   }
 const {register,handleSubmit,formState:{errors}} = useForm({
     mode:"onTouched",
     reValidateMode:"onChange"
@@ -69,7 +78,7 @@ const {register,handleSubmit,formState:{errors}} = useForm({
       if(response.data === 1){
       history.push('/tab1');
       }else{
-        alert(response.data);
+        alert("Failed To Take Item");
         console.log(response.data);
       }
     }).catch((error)=>{

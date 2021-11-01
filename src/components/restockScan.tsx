@@ -24,10 +24,37 @@ const Restock: React.FC = ()=> {
 let history:any = useHistory();
 let id:any = localStorage.getItem('id');
 const [quantityValue,setQuantity] = useState<number>();
+const [nextPrompt,setNextPrompt] = useState(false);
 const [showPrompt,setPrompt] = useState(true);
 const [err, setErr] = useState<String>()
 const [hideBg,setHideBg] = useState("")
 const [showAlert,setAlert] = useState(false)
+
+const SendWithoutCode =()=>{
+    const AllData:any = localStorage.getItem('quantity');
+    const parsed = JSON.parse(AllData);
+    const expire:any = parsed.expire;
+    const quantity:any = parsed.quantity;
+      axios.get(`${address}App_Data/InventoryUpdate.php`,{
+      params:{
+        restockNoCode:1,
+        id:id,
+        expireDate:expire,
+        quantity:quantity,
+      },
+    })
+    .then((response:any)=>{
+      if(response.data==1){
+        setAlert(true);
+        localStorage.removeItem('quantity');
+      }else{
+        alert(`${response.data}`)
+      }
+    })
+    .catch((error:any)=>{
+      alert("Failed to save");
+    });
+}
 const startScan = async () => {
   BarcodeScanner.hideBackground() // make background of WebView transparent
   setHideBg("hideBg")
@@ -39,12 +66,17 @@ const startScan = async () => {
   if (result.hasContent) {
     console.log(result.content)
     let code:any = result.content;
-    let quantity:any = localStorage.getItem('quantity');
+    let AllData:any = localStorage.getItem('quantity');
+    const parsed = JSON.parse(AllData);
+    const expire = parsed.expire;
+    const quantity = parsed.quantity;
+    console.log(parsed);
       axios.get(`${address}App_Data/InventoryUpdate.php`,{
       params:{
         restock:1,
         id:id,
         code:code,
+        expireDate:expire,
         quantity:quantity,
       },
     })
@@ -147,24 +179,30 @@ return (
        <IonAlert
       isOpen={showPrompt}
       header={'Quantity'}
-      message={`Enter stock amount`}
+      message={`Enter stock amount and Expiry Date`}
       inputs={[
         {
           name:'Quantity',
           type:'number',
           placeholder:'Enter number of items to restock',
           min:1,
-        }
+        },
+        {
+          name:'Expire',
+          label:'Expiry Date',
+          type:'date',
+        },
         ]}
       buttons={[
         {
           text:'OK',
           handler: (data:any)=>{
-            if(data.Quantity>0){
-              const dataValue = data.Quantity;
-              localStorage.setItem('quantity',dataValue);
+            if(data.Quantity>0 && data.Expire !== ''){
+              const dataValue = {quantity:data.Quantity,expire:data.Expire}
+              localStorage.setItem('quantity',JSON.stringify(dataValue));
+              setNextPrompt(true);
             }else{
-              alert("Enter Stock Quantity!");
+              alert("Enter All all the fields!");
               setPrompt(false);
               setPrompt(true);
             }
@@ -173,6 +211,25 @@ return (
         ]}
         
       />
+
+      <IonAlert  isOpen={nextPrompt}
+      header={'Quantity'}
+      message={'Is there a code on the item'}
+      buttons={[
+        {
+          text:'No',
+          handler: ()=>{
+            SendWithoutCode()
+          }
+        },
+        {
+          text:'Yes',
+          handler:()=>{
+            setNextPrompt(false)
+          }
+        }
+        ]}
+         />
     </IonContent>
   </IonPage>
 )

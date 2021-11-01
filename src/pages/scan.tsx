@@ -16,7 +16,7 @@ import {
 import axios from 'axios';
 import {address} from '../components/AddressService';
 import {useHistory} from 'react-router-dom';
-import { scanOutline, stopCircleOutline } from "ionicons/icons"
+import { scanOutline, stopCircleOutline,flashlight } from "ionicons/icons"
 import {useEffect, useState} from "react";
 import './scan.css';
 
@@ -26,6 +26,7 @@ const [codeData, setData] = useState<any>();
 const [showAlert,setAlert] = useState(false);
 const [err, setErr] = useState<String>()
 const [hideBg,setHideBg] = useState("")
+
 const startScan = async () => {
   BarcodeScanner.hideBackground() // make background of WebView transparent
   setHideBg("hideBg")

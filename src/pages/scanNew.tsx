@@ -69,7 +69,17 @@ const startScan = async () => {
       }
     })
     .catch((error:any)=>{
-      alert("Failed to save");
+      let data = {
+        "ProductName":name,
+        "quantity":quantity,
+        "expire":expireDate,
+        "receivedBy":receivedBy,
+        "code":code,
+        "notes":notes,
+        "provider":provider,
+      }
+      localStorage.setItem("New",JSON.stringify(data));
+      alert("Serve offline, will send data when back online");
     });
   }
 }

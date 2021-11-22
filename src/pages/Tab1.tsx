@@ -20,6 +20,7 @@ import {useForm,Controller} from 'react-hook-form';
 import axios from 'axios';
 import { Redirect, Route,useHistory } from 'react-router-dom';
 import {address} from '../components/AddressService';
+import {setName,getName,removeName} from '../components/storage'
 import './Tab1.css';
 
 const Tab1: React.FC = () => {
@@ -46,6 +47,7 @@ const Tab1: React.FC = () => {
   });
   useIonViewWillEnter(() => {
     const user = localStorage.getItem('user');
+   // const user = localStorage.getItem('user');
     if(user===null){
       history.push("/login");
     }
@@ -55,11 +57,15 @@ const Tab1: React.FC = () => {
       },
     })
     .then((response:any)=>{
+      localStorage.setItem("Offline",JSON.stringify(response.data))
       setData(response.data);
       setError("");
     })
     .catch((error:any)=>{
-      setError("Server is offline");
+      setError("Server is offline, Using Stale data");
+      let data:any = localStorage.getItem("Offline");
+      let setIt = JSON.parse(data);
+      setData(setIt);
     });
   });
 
@@ -104,8 +110,33 @@ const Tab1: React.FC = () => {
         {viewSearchError}
         <IonList>
         {searchData.map((items:any)=>{
+          if(items.Quantity<=5){
+                items.Quantity = <IonBadge color="danger"><IonIcon icon={cart}/>{items.Quantity}</IonBadge>
+              }
+
+              if(items.Quantity>10){
+                items.Quantity = <IonBadge color="success"><IonIcon icon={cart}/>{items.Quantity}</IonBadge>
+              }
+
+              let expiryDate:any = new Date(items.ExpireDate);
+              let currentDate:any =new Date();
+              let DateSub = expiryDate-currentDate;
+              if(DateSub<2548931590 && DateSub>0){
+                items.ExpireDate = <IonBadge className="textPadding" color="warning"><IonIcon icon={calendar}/>Expiring On {items.ExpireDate}</IonBadge>
+              }
+
+              if(TodaysDate>=new Date(items.ExpireDate)){
+                items.ExpireDate = <IonBadge className="textPadding" color="danger"><IonIcon icon={calendar}/>Expired On {items.ExpireDate}</IonBadge>
+              }
+              if(TodaysDate<new Date(items.ExpireDate)){
+                items.ExpireDate = <IonBadge className="textPadding" color="success"><IonIcon icon={calendar}/>Expiry On {items.ExpireDate}</IonBadge>
+              }
+
+              if(items.Quantity<=10 && items.Quantity>5){
+                items.Quantity = <IonBadge color="warning"><IonIcon icon={cart}/>{items.Quantity}</IonBadge>
+              }
           return(
-            <IonItem key={items.id} onClick={()=>{
+            <div key={items.id} onClick={()=>{
                     setName(items.productName);
                     setCode(items.Code);
                     setQuantity(items.Quantity);
@@ -117,14 +148,21 @@ const Tab1: React.FC = () => {
 
                   }}>
               <div className="ListItems">
-                      <img src="./assets/media/pills.png" className="List_img" alt="" />
-                      <IonLabel className="Label"><b>{items.productName}</b></IonLabel>
-                    </div>
-                      <div>
-                        <IonIcon icon={qrCode}/>
-                        <IonText className="textPadding">{items.Code}</IonText>
+                      <div className="Header"> 
+                      <img src="./assets/media/pills.png" className="List_img" alt="" />     
+                      <IonLabel className="SearchLabel">{items.productName}</IonLabel>
+                      </div>
+                      <br/>
+                      <div className="itemsFlex">
+                        <div>{items.Quantity}</div>
+                        <div><IonIcon icon={storefront}/>{items.Provider}</div>
+                        <div>{items.ExpireDate}</div>
+                       
+                       
+                        
                       </div> 
-            </IonItem>
+            </div>
+            </div>
             )
         })}
         </IonList>
@@ -200,7 +238,6 @@ const Tab1: React.FC = () => {
       isOpen={showAlert}
       header={name}
       message={`Product Code ${code} <br/>
-      In stock ${quantity} <br/>
       Provider ${provider} <br/>
       Signed By ${receive} <br/>
       Date Signed ${rdate} <br/>

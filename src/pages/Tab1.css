@@ -34,13 +34,22 @@
 
 .ListItems{
 	display: flex;
-	flex-direction: row;
-	align-content: center;
+	text-align: left;
+	flex-direction: column;
+	box-shadow: 0px 1px 5px 0px grey;
+	border-radius: 7px;
+	border-left: 5px solid #00aeff;
+	padding: 10px;
 	margin: 5px;
 }
 .Label{
 	margin-left: 5px;
 	font-size: 20px;
+}
+
+.SearchLabel{
+	margin-left: 5px;
+	font-size: 18px;
 }
 
 .specialList{

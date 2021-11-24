@@ -57,7 +57,33 @@ const AddNew: React.FC = () => {
       }
     })
     .catch((error:any)=>{
-      alert("Network Error");
+     let data = {
+        "productName":productName,
+        "Quantity":quantity,
+        "ExpireDate":expireDate,
+        "ReceivedBy":receivedBy,
+        "ReceiveDate":receiveDate,
+        "Code":code,
+        "Notes":notes,
+        "Provider":provider,
+      }
+      if(localStorage.getItem("Offline") === null){
+        localStorage.setItem("Offline","[]");
+      }
+
+      if(localStorage.getItem("NewData") === null){
+        localStorage.setItem("NewData","[]");
+      }
+      let parsedOffline:any = localStorage.getItem("Offline");
+      let parsedOnline:any = localStorage.getItem("NewData");
+      parsedOffline = JSON.parse(parsedOffline);
+      parsedOnline = JSON.parse(parsedOnline);
+      parsedOffline.push(data);
+      parsedOnline.push(data);
+      localStorage.setItem("Offline",JSON.stringify(parsedOffline));
+      localStorage.setItem("NewData",JSON.stringify(parsedOnline));
+      alert("Data saved, will update once back online");
+      history.push("/tab2");
     });
     }
 

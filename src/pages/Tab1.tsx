@@ -3,28 +3,28 @@ import { IonContent,
   IonPage, 
   IonTitle, 
   IonToolbar, 
-  IonSearchbar,
   IonButton,
   IonText,
   IonInput,
   useIonViewWillEnter,
   IonList,
-  IonItem,
   IonIcon,
-  IonCard,
   IonBadge,
-  IonLabel,useIonAlert,IonAlert} from '@ionic/react';
-import {flaskSharp,calendar,cart,clipboard,storefront,qrCode,search} from 'ionicons/icons';
-import {useState,useEffect} from 'react';
-import {useForm,Controller} from 'react-hook-form';
+  IonLabel,IonAlert, IonFab, IonFabButton} from '@ionic/react';
+import {calendar,cart,wifi,globeOutline,storefront,search} from 'ionicons/icons';
+import {useState} from 'react';
+import {useForm} from 'react-hook-form';
 import axios from 'axios';
-import { Redirect, Route,useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {address} from '../components/AddressService';
-import {setName,getName,removeName} from '../components/storage'
+import { UpdateNew } from '../components/OfflineServices';
+import { OfflineSearch } from '../components/OfflineServices';
 import './Tab1.css';
 
 const Tab1: React.FC = () => {
   const history = useHistory();
+  const [OnlineColor,setColor] = useState<string>("");
+  const [Online,setOnline] = useState(wifi);
   const [searchv, setSearch] = useState<string>("");
   const [showAlert,setAlert] = useState(false);
   const [name,setName] = useState<string>("");
@@ -51,18 +51,28 @@ const Tab1: React.FC = () => {
     if(user===null){
       history.push("/login");
     }
+
+    let parsed:any = localStorage.getItem("NewData");
     axios.get(`${address}App_Data/Inventory.php`,{
       params:{
         getData:1,
       },
     })
     .then((response:any)=>{
+      setOnline(wifi);
+      setColor("");
       localStorage.setItem("Offline",JSON.stringify(response.data))
       setData(response.data);
       setError("");
+      if(parsed !== null){
+        parsed = JSON.parse(parsed);
+        UpdateNew(parsed);
+      }
     })
     .catch((error:any)=>{
-      setError("Server is offline, Using Stale data");
+      setOnline(globeOutline);
+      setColor("danger");
+      setError("");
       let data:any = localStorage.getItem("Offline");
       let setIt = JSON.parse(data);
       setData(setIt);
@@ -89,7 +99,7 @@ const Tab1: React.FC = () => {
       }
     })
     .catch((error:any)=>{
-      setError("Server is offline");
+      OfflineSearch(userData,setSearchData);
     });
   }
   return (
@@ -233,7 +243,13 @@ const Tab1: React.FC = () => {
               })}
            </IonList>
           </div>
+         
         </div>
+        <IonFab vertical="bottom" horizontal="start" slot="fixed">
+          <IonFabButton color={OnlineColor}> 
+            <IonIcon icon={Online} />
+          </IonFabButton>
+        </IonFab>
         <IonAlert
       isOpen={showAlert}
       header={name}

@@ -1,10 +1,11 @@
 import { IonContent,IonIcon,IonButton, IonHeader,useIonViewWillEnter, IonPage, IonTitle, IonToolbar, IonSearchbar,IonText,IonList,IonItem,IonLabel } from '@ionic/react';
-import {settings,person,personCircle, cloudDownload,helpCircle,informationCircle, analytics,documentText,flash} from 'ionicons/icons';
 import {useState,useEffect} from 'react';
+import { UpdateNew } from '../components/OfflineServices';
 import { useHistory } from 'react-router-dom';
 import './Tab3.css';
 
 const Tab3: React.FC = () => {
+  const [allData,setData] = useState<any>([]);
   const [user,setUser]=useState<string>("");
   const history = useHistory();
   useIonViewWillEnter(() => {
@@ -14,8 +15,12 @@ const Tab3: React.FC = () => {
     }else{
       setUser(user);
     }
-  });
 
+    let parsed:any = localStorage.getItem("NewData");
+  parsed = JSON.parse(parsed);
+  setData(parsed);
+  });
+  
   const logout=()=>{
     localStorage.removeItem('user');
     history.push("/login");
@@ -40,6 +45,7 @@ const Tab3: React.FC = () => {
         <IonText>Please logout when you are done using the application to protect your account</IonText>
       </div>
       <div>
+        <IonButton onClick={()=>{UpdateNew(allData)}}>Update</IonButton>
         <IonButton className="btn" onClick={()=>{logout()}}>LOGOUT</IonButton>
       </div>
       </div>

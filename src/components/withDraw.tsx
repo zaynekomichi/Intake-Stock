@@ -8,6 +8,8 @@ import {useHistory } from 'react-router-dom';
 import {address} from './AddressService';
 
 import './edititem.css';
+import { OfflineSearch, UpdateInventoryItem } from './OfflineServices';
+import Withdraw from './withDrawItem';
 
 const Take: React.FC = () => {
   const history:any = useHistory();
@@ -47,7 +49,7 @@ const Take: React.FC = () => {
       }
     })
     .catch((error:any)=>{
-      setError("Server is offline");
+      OfflineSearch(name,setResults);
     });
   }
 
@@ -75,7 +77,22 @@ const Take: React.FC = () => {
       }
     })
     .catch((error:any)=>{
-      alert("Failed to save");
+      let data = {
+        "id":id,
+        "value":value,
+        "remaining":remaining,
+        "user":user
+      }
+      let getStored:any = localStorage.getItem("WithdrawData");
+      if(getStored === null){
+       getStored = localStorage.setItem("WithdrawData","[]"); 
+      }
+      getStored = localStorage.getItem("WithdrawData");
+      getStored = JSON.parse(getStored);
+     let dataStore =  getStored.push(data);
+     localStorage.setItem("WithdrawData",JSON.stringify(getStored));
+     alert("Server offline will update once back.");
+     history("./tab2");
     });
   }
   }

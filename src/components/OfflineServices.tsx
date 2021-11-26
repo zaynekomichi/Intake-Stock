@@ -42,6 +42,32 @@ export const UpdateNew=(data:any)=>{
     localStorage.setItem("NewData","[]");
   }
 
+
+  export const UpdateInventoryItem=(data:any)=>{
+   data.map((data:any)=>{
+    axios.get(`${address}App_Data/InventoryMulti.php`,{
+      params:{
+        Withdraw:1,
+        id:data.id,
+        taken:data.value,
+        remaining:data.remaining,
+        user:data.user,
+      },
+    })
+    .then((response:any)=>{
+      if(response.data==1){
+       console.log(response);
+      }else{
+        alert("Failed!")
+      }
+    })
+    .catch((error:any)=>{
+     UpdateInventoryItem(data);
+    });
+   });
+    
+  }
+
 export const OfflineSearch=(SearchData:string,setSearchData:any)=>{
   let Data:any = localStorage.getItem("Offline");
   Data = JSON.parse(Data);

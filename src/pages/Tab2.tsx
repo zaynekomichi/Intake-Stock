@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 
 import axios from 'axios';
 import './Tab2.css';
+import { UpdateInventoryItem } from '../components/OfflineServices';
 
 const Tab2: React.FC = () => {
   const history = useHistory();
@@ -19,6 +20,8 @@ const Tab2: React.FC = () => {
   const [username,setUser] = useState<string>("");
   const [ttime,setTime] = useState<string>("");
   useIonViewWillEnter(() => {
+    let GetWithdrawals:any = localStorage.getItem("WithDrawalData");
+    GetWithdrawals = JSON.parse(GetWithdrawals);
     const user = localStorage.getItem('user');
     if(user===null){
       history.push("/login");
@@ -31,6 +34,7 @@ const Tab2: React.FC = () => {
     .then((response:any)=>{
       setData(response.data);
       setError("");
+      UpdateInventoryItem(GetWithdrawals);
     })
     .catch((error:any)=>{
       setError("Server is offline");

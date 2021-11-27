@@ -13,15 +13,13 @@ const Tab2: React.FC = () => {
   const [showAlert,setAlert] = useState(false);
   const [allData,setData] = useState([]);
   const [viewError,setError] = useState<string>("");
-   const [name,setName] = useState<string>("");
+  const [name,setName] = useState<string>("");
   const [quantity,setQuantity] = useState<number>();
   const [code,setCode] = useState<string>("");
   const [tdate,setDate] = useState<string>("");
   const [username,setUser] = useState<string>("");
   const [ttime,setTime] = useState<string>("");
   useIonViewWillEnter(() => {
-    let GetWithdrawals:any = localStorage.getItem("WithDrawalData");
-    GetWithdrawals = JSON.parse(GetWithdrawals);
     const user = localStorage.getItem('user');
     if(user===null){
       history.push("/login");
@@ -34,6 +32,8 @@ const Tab2: React.FC = () => {
     .then((response:any)=>{
       setData(response.data);
       setError("");
+      let GetWithdrawals:any = localStorage.getItem("WithdrawData");
+      GetWithdrawals = JSON.parse(GetWithdrawals);
       UpdateInventoryItem(GetWithdrawals);
     })
     .catch((error:any)=>{

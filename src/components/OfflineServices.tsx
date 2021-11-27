@@ -25,17 +25,7 @@ export const UpdateNew=(data:any)=>{
                 alert("Failed")
               }
             }).catch((error)=>{
-                let catche = {
-                "productName":Items .name,
-                "quantity":Items.quantity,
-                "expireDate":Items.expire,
-                "receivedBy":Items.receivedBy,
-                "receiveDate":Items.receiveDate,
-                "code":Items.code,
-                "notes":Items.notes,
-                "provider":Items.provider
-                }
-                Failed.push(catche);
+              alert("Failed. Contact  Adminstrator");
             });
     });
     localStorage.removeItem("NewData");
@@ -62,10 +52,11 @@ export const UpdateNew=(data:any)=>{
       }
     })
     .catch((error:any)=>{
-     UpdateInventoryItem(data);
+      alert("Failed. Contact  Adminstrator");
     });
    });
-    
+   localStorage.removeItem("WithdrawData");
+   localStorage.setItem("WithdrawData","[]");
   }
 
 export const OfflineSearch=(SearchData:string,setSearchData:any)=>{

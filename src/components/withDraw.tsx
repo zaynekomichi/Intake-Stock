@@ -92,7 +92,7 @@ const Take: React.FC = () => {
      let dataStore =  getStored.push(data);
      localStorage.setItem("WithdrawData",JSON.stringify(getStored));
      alert("Server offline will update once back.");
-     history("./tab2");
+     history.push("./tab2");
     });
   }
   }

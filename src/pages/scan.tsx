@@ -19,6 +19,7 @@ import {useHistory} from 'react-router-dom';
 import { scanOutline, stopCircleOutline,flashlight } from "ionicons/icons"
 import {useEffect, useState} from "react";
 import './scan.css';
+import { OfflineCodeSearch } from '../components/OfflineServices';
 
 const Scan: React.FC = () => {
 const history = useHistory();
@@ -61,7 +62,7 @@ const startScan = async () => {
       }
     })
     .catch((error)=>{
-      alert(error);
+      OfflineCodeSearch(code);
     });
   }
 }

@@ -8,7 +8,7 @@ import {useHistory } from 'react-router-dom';
 import {address} from './AddressService';
 
 import './edititem.css';
-import { OfflineSearch, UpdateInventoryItem } from './OfflineServices';
+import { OfflineSearch } from './OfflineServices';
 import Withdraw from './withDrawItem';
 
 const Take: React.FC = () => {
@@ -49,7 +49,7 @@ const Take: React.FC = () => {
       }
     })
     .catch((error:any)=>{
-      OfflineSearch(name,setResults);
+      OfflineSearch(userData,setResults);
     });
   }
 

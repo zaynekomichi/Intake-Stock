@@ -1,6 +1,6 @@
-import { Redirect, Route } from 'react-router-dom';
+
 import { IonContent,IonAlert,IonList,IonItem,IonLabel,useIonViewWillEnter, IonHeader, IonPage, IonTitle, IonToolbar,IonButton } from '@ionic/react';
-import {useState,useEffect} from 'react';
+import {useState} from 'react';
 import {address} from '../components/AddressService';
 import { useHistory } from 'react-router-dom';
 
@@ -24,6 +24,16 @@ const Tab2: React.FC = () => {
     if(user===null){
       history.push("/login");
     }
+    let GetWithdrawals:any = localStorage.getItem("WithdrawData");
+    let OfflineCheckout:any = localStorage.getItem("OfflineCheckout");
+    if(GetWithdrawals === null){
+      GetWithdrawals = localStorage.setItem("WithdrawData","[]");
+    }
+    if(OfflineCheckout === null){
+      OfflineCheckout = localStorage.setItem("OfflineCheckout","[]");
+    }
+    GetWithdrawals = JSON.parse(GetWithdrawals);
+
     axios.get(`${address}App_Data/InventoryHistory.php`,{
       params:{
         getData:1,
@@ -32,12 +42,14 @@ const Tab2: React.FC = () => {
     .then((response:any)=>{
       setData(response.data);
       setError("");
-      let GetWithdrawals:any = localStorage.getItem("WithdrawData");
-      GetWithdrawals = JSON.parse(GetWithdrawals);
+      localStorage.setItem("OfflineCheckout",JSON.stringify(response.data));
       UpdateInventoryItem(GetWithdrawals);
     })
     .catch((error:any)=>{
       setError("Server is offline");
+      let data:any = localStorage.getItem("OfflineCheckout");
+      let setIt = JSON.parse(data);
+      setData(setIt);
     });
   });
   return (

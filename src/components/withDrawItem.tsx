@@ -54,10 +54,6 @@ const {register,handleSubmit,formState:{errors}} = useForm({
     const productName = Items.productName;
     const NewQuantity =parseInt(Items.Quantity)-data.quantity;
     const taken = data.quantity;
-    const provider = Items.provider;
-    const receivedBy = Items.receivedBy;
-    const receiveDate = Items.receiveDate;
-    const notes = Items.notes;
     setId(Items.id);
     setProductData(productName);
     setAmountData(taken);
@@ -82,7 +78,22 @@ const {register,handleSubmit,formState:{errors}} = useForm({
         console.log(response.data);
       }
     }).catch((error)=>{
-      alert("Network Error");
+      let data = {
+        "id":idData,
+        "value":amountData,
+        "remaining":remainingData,
+        "user":user
+      }
+      let getStored:any = localStorage.getItem("WithdrawData");
+      if(getStored === null){
+       getStored = localStorage.setItem("WithdrawData","[]"); 
+      }
+      getStored = localStorage.getItem("WithdrawData");
+      getStored = JSON.parse(getStored);
+     let dataStore =  getStored.push(data);
+     localStorage.setItem("WithdrawData",JSON.stringify(getStored));
+     alert("Server offline will update once back.");
+     history.push("./tab2");
     });
   }
   return(

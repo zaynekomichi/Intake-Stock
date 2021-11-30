@@ -1,5 +1,8 @@
 import axios from "axios";
 import {address} from './AddressService';
+import { useHistory } from 'react-router-dom';
+
+
 export const UpdateNew=(data:any)=>{
   let Failed = [];
     data.map((Items:any)=>{
@@ -34,6 +37,7 @@ export const UpdateNew=(data:any)=>{
 
 
   export const UpdateInventoryItem=(data:any)=>{
+    console.log(data);
    data.map((data:any)=>{
     axios.get(`${address}App_Data/InventoryMulti.php`,{
       params:{
@@ -64,4 +68,21 @@ export const OfflineSearch=(SearchData:string,setSearchData:any)=>{
   Data = JSON.parse(Data);
   const Filtered = Data.filter((name:any)=>name.productName.startsWith(SearchData));
   setSearchData(Filtered);
+  console.log(Filtered);
+}
+
+export const OfflineCodeSearch=(SearchData:string)=>{
+  const history = useHistory();
+  let Data:any = localStorage.getItem("Offline");
+  Data = JSON.parse(Data);
+  const Filtered = Data.filter((name:any)=>name.Code.startsWith(SearchData));
+  const First = Filtered[0];
+  if (First === [] || First === null){
+    alert("Could not find Item, try searching using the name");
+    history.push("/withDraw");
+  }else{
+  localStorage.setItem('changeInventory',JSON.stringify(First));
+  console.log(Filtered);
+  history.push("/withDrawItem");
+  }
 }

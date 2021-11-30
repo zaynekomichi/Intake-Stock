@@ -62,11 +62,12 @@ const AddNew: React.FC = () => {
         "Quantity":quantity,
         "ExpireDate":expireDate,
         "ReceivedBy":receivedBy,
-        "ReceiveDate":receiveDate,
-        "Code":code,
+        "ReceiveDate":receiveDate
+   ,     "Code":code,
         "Notes":notes,
         "Provider":provider,
       }
+      
       if(localStorage.getItem("Offline") === null){
         localStorage.setItem("Offline","[]");
       }

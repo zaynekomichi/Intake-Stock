@@ -61,7 +61,7 @@ const Tab1: React.FC = () => {
     .then((response:any)=>{
       setOnline(wifi);
       setColor("");
-      localStorage.setItem("Offline",JSON.stringify(response.data))
+      localStorage.setItem("Offline",JSON.stringify(response.data));
       setData(response.data);
       setError("");
       if(parsed !== null){

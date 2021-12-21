@@ -19,7 +19,6 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	height: 500px;
 	text-align: center;
 }
 
@@ -46,4 +45,11 @@
 .generalIconSize{
 	font-size: 80px;
 	color: #00aeff;
+}
+
+.generalflex{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	margin:10px;
 }

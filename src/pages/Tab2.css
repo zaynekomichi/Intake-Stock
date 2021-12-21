@@ -1,10 +1,12 @@
 .cards_row{
 	display: flex;
 	flex-direction: row;
-	justify-content: space-evenly;
+	justify-content: space-between;
 	align-items: center;
 	box-shadow: 0px 1px 5px 0px grey;
 	margin: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
 	border-radius: 7px;
 }
 

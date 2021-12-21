@@ -22,6 +22,7 @@ import Withdraw from './components/withDrawItem';
 import Take from './components/withDraw';
 import Restock from './components/restockScan';
 import Testing from './pages/test';
+import How from './User/How';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -41,6 +42,12 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Troubleshoot from './User/Troubleshoot';
+import Security from './User/Security';
+import Help from './User/Help';
+import About from './User/About';
+import Terms from './User/Terms';
+import PStorage from './User/Storage';
 
 const App: React.FC = () => (
   
@@ -84,9 +91,17 @@ const App: React.FC = () => (
            <Route exact path="/withDraw">
             <Take />
           </Route>
+          <Route exact path="/How" component={How}/>
+          <Route exact path="/Troubleshoot" component={Troubleshoot}/>
+          <Route exact path="/Security" component={Security}/>
+          <Route exact path="/Help" component={Help}/>
+          <Route exact path="/About" component={About}/>
+          <Route exact path="/Terms" component={Terms}/>
+          <Route exact path="/Storage" component={PStorage}/>
           <Route exact path="/">
             <Redirect to="/Login" />
           </Route>
+
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="tab1" href="/tab1">

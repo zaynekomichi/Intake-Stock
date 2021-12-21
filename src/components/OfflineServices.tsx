@@ -66,9 +66,8 @@ export const UpdateNew=(data:any)=>{
 export const OfflineSearch=(SearchData:string,setSearchData:any)=>{
   let Data:any = localStorage.getItem("Offline");
   Data = JSON.parse(Data);
-  const Filtered = Data.filter((name:any)=>name.productName.startsWith(SearchData));
+  const Filtered = Data.filter((name:any)=>name.productName.toLowerCase().startsWith(SearchData));
   setSearchData(Filtered);
-  console.log(Filtered);
 }
 
 export const OfflineCodeSearch=(SearchData:string)=>{

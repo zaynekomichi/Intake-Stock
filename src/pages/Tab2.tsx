@@ -1,5 +1,5 @@
 
-import { IonContent,IonAlert,IonList,IonItem,IonLabel,useIonViewWillEnter, IonHeader, IonPage, IonTitle, IonToolbar,IonButton } from '@ionic/react';
+import { IonContent,IonAlert,IonList,IonItem,IonLabel,useIonViewWillEnter, IonHeader, IonPage, IonTitle, IonToolbar,IonButton, IonVirtualScroll,IonInfiniteScroll } from '@ionic/react';
 import {useState} from 'react';
 import {address} from '../components/AddressService';
 import { useHistory } from 'react-router-dom';

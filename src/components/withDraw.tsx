@@ -107,7 +107,7 @@ const Take: React.FC = () => {
       <IonContent fullscreen>
        <div className="Margins">
         <form onSubmit={handleSubmit(onSubmit)}>
-        <IonInput type="text"  {...register("productName",{required:true})} placeholder="Search For Item To Take" onIonChange={e=>{setSearch(e.detail.value!)}} value={searchValue} className="top-search"/>
+        <IonInput type="text"  {...register("productName",{required:true})} placeholder="Search, use lower case" onIonChange={e=>{setSearch(e.detail.value!)}} value={searchValue} className="top-search"/>
         <IonButton type="submit" className="searchBtn"><IonIcon icon={search}/></IonButton>
         </form>
        </div>

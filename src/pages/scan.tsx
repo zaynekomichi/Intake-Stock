@@ -62,7 +62,15 @@ const startScan = async () => {
       }
     })
     .catch((error)=>{
-      OfflineCodeSearch(code);
+      let a = OfflineCodeSearch(code);
+      if(a === true){
+        console.log('found'); 
+        history.push('/withDrawItem');
+      }else if(a === false){
+        setAlert(true);
+      }else{
+        alert("Ran into a problem");
+      }
     });
   }
 }

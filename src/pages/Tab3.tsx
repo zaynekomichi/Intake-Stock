@@ -43,16 +43,8 @@ const Tab3: React.FC = () => {
       <div>
         <img src="./assets/media/logout.png" alt="" />
       </div>
-      <IonText>
-      Welcome {user}, congratulations on opening the app. That takes a lot of work.
-      Everything might seem complicated right now but it is easy. First off
-      start by exploring the applcation this helps you get a feel of what the app is about.
-      Dont be afraid to click buttons, you wont break anything. <b>Remember</b> to logout once you
-      are done using the application this will help keep check on the stock inventory, someone might and will 
-      use your account if you do not logout.
-      </IonText>
       </div>
-      {/*<IonList>
+      <IonList>
         <IonItem onClick={()=>history.push('/How')}><IonIcon icon={informationCircleOutline} size='large'/>&nbsp;<IonText>How To Use App</IonText> </IonItem>
         <IonItem onClick={()=>history.push('/Storage')}><IonIcon icon={cloudOutline} size='large'/>&nbsp;<IonText>Storage</IonText></IonItem>
         <IonItem onClick={()=>history.push('/Troubleshoot')}><IonIcon icon={hammerOutline} size='large'/>&nbsp;<IonText> Troubleshooting</IonText></IonItem>
@@ -60,7 +52,7 @@ const Tab3: React.FC = () => {
         <IonItem onClick={()=>history.push('/Help')}><IonIcon icon={helpOutline} size='large'/> &nbsp;<IonText>Help</IonText></IonItem>
         <IonItem onClick={()=>history.push('/Security')}><IonIcon icon={lockClosedOutline} size='large'/>&nbsp;<IonText> Security</IonText></IonItem>
         <IonItem onClick={()=>history.push('/About')}><IonIcon icon={businessOutline} size='large'/>&nbsp;<IonText> About</IonText></IonItem>
-      </IonList>*/}
+      </IonList>
       </IonContent>
     </IonPage>
   );

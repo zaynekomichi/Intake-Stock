@@ -20,6 +20,23 @@ const How = ()=>{
                 </IonToolbar>
             </IonHeader>
             <IonContent>
+            <div hidden={card_1}>
+            <IonCard>
+                <IonCardHeader>
+                    <IonTitle>Getting Started</IonTitle>
+                </IonCardHeader>
+                <IonCardContent>
+                    <p>
+                        Welcome, congratulations on opening the app. That takes a lot of work.
+                        Everything might seem complicated right now but it is easy. First off
+                        start by exploring the applcation this helps you get a feel of what the app is about.
+                        Dont be afraid to click buttons, you wont break anything. <b>Remember</b> to logout once you
+                        are done using the application this will help keep check on the stock inventory, someone might and will 
+                        use your account if you do not logout.
+                    </p>
+                </IonCardContent>
+            </IonCard> 
+            </div>
                 <div className='Lists'>
                 <div className='cards_row' onClick={()=>setCard1(false)}> 
                     <p>Getting started</p>
@@ -46,15 +63,7 @@ const How = ()=>{
                         <IonIcon icon={search} size='large' />
                 </div>          
             </div>
-            <div hidden={card_1}>
-            <IonCard>
-                <IonCardHeader>
-                    <IonTitle>Getting Started</IonTitle>
-                </IonCardHeader>
-                <IonCardContent>
-                </IonCardContent>
-            </IonCard> 
-            </div>
+            
             </IonContent>
         </IonPage>
     );

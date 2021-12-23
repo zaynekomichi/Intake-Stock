@@ -71,17 +71,17 @@ export const OfflineSearch=(SearchData:string,setSearchData:any)=>{
 }
 
 export const OfflineCodeSearch=(SearchData:string)=>{
-  const history = useHistory();
+  //const history = useHistory();
   let Data:any = localStorage.getItem("Offline");
   Data = JSON.parse(Data);
+  console.log(Data.Code);
   const Filtered = Data.filter((name:any)=>name.Code.startsWith(SearchData));
-  const First = Filtered[0];
-  if (First === [] || First === null){
-    alert("Could not find Item, try searching using the name");
-    history.push("/withDraw");
+  let First:any = Filtered[0];
+  let lengthf = Filtered.length;
+  if (lengthf<=0){
+   return false;
   }else{
-  localStorage.setItem('changeInventory',JSON.stringify(First));
-  console.log(Filtered);
-  history.push("/withDrawItem");
+    localStorage.setItem('changeInventory',JSON.stringify(First));
+    return true;
   }
 }

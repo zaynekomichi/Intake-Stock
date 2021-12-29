@@ -1,6 +1,7 @@
 # Intake-Stock
 Ionic React app, inventory system with barcode and qr scanner + more scan codes, keep track of your stock
 User features, can add login capability to tell who withdrew items
+<p><img src="1.png"/><img sr="2.png"/></p>
 
 # Requirements for deploying and packaging app
 - nodejs

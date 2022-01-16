@@ -56,6 +56,7 @@ const Tab1: React.FC = () => {
     axios.get(`${address}App_Data/Inventory.php`,{
       params:{
         getData:1,
+        type:1
       },
     })
     .then((response:any)=>{
@@ -77,7 +78,49 @@ const Tab1: React.FC = () => {
       let setIt = JSON.parse(data);
       setData(setIt);
     });
+    axios.get(`${address}App_Data/Inventory.php`,{
+      params:{
+        AllData:1,
+      },
+    })
+    .then((response:any)=>{
+      localStorage.setItem("OfflineAll",JSON.stringify(response.data));
+    })
+    .catch((error:any)=>{
+      console.log("error")
+    });
   });
+
+  const request=(type:number)=>{
+    let parsed:any = localStorage.getItem("NewData");
+    axios.get(`${address}App_Data/Inventory.php`,{
+      params:{
+        getData:1,
+        type:type
+      },
+    })
+    .then((response:any)=>{
+      setOnline(wifi);
+      setColor("");
+      localStorage.setItem("Offline",JSON.stringify(response.data));
+      setData(response.data);
+      setError("");
+      if(parsed !== null){
+        parsed = JSON.parse(parsed);
+        UpdateNew(parsed);
+      }
+    })
+    .catch((error:any)=>{
+      setOnline(globeOutline);
+      setColor("danger");
+      setError("");
+      let data:any = localStorage.getItem("OfflineAll");
+      let Data = JSON.parse(data);
+      const Filtered:any = Data.filter((name:any)=>name.Type === type);
+      //console.log(Data.Type)
+      setData(Filtered);
+    });
+  }
 
   const onSubmit = (data:any) =>{
     const userData:any = data.productName;
@@ -131,19 +174,23 @@ const Tab1: React.FC = () => {
               let expiryDate:any = new Date(items.ExpireDate);
               let currentDate:any =new Date();
               let DateSub = expiryDate-currentDate;
-              if(DateSub<2548931590 && DateSub>0){
+              if(DateSub<2548931590 && DateSub>0 && items.Type !== 2){
                 items.ExpireDate = <IonBadge className="textPadding" color="warning"><IonIcon icon={calendar}/>Expiring On {items.ExpireDate}</IonBadge>
               }
 
-              if(TodaysDate>=new Date(items.ExpireDate)){
+              if(TodaysDate>=new Date(items.ExpireDate) && items.Type !== 2){
                 items.ExpireDate = <IonBadge className="textPadding" color="danger"><IonIcon icon={calendar}/>Expired On {items.ExpireDate}</IonBadge>
               }
-              if(TodaysDate<new Date(items.ExpireDate)){
+              if(TodaysDate<new Date(items.ExpireDate) && items.Type !== 2){
                 items.ExpireDate = <IonBadge className="textPadding" color="success"><IonIcon icon={calendar}/>Expiry On {items.ExpireDate}</IonBadge>
               }
 
               if(items.Quantity<=10 && items.Quantity>5){
                 items.Quantity = <IonBadge color="warning"><IonIcon icon={cart}/>{items.Quantity}</IonBadge>
+              }
+
+              if(items.Type == 2){
+                items.ExpireDate = <IonBadge className="textPadding" color="primary">Fixed Asset</IonBadge>
               }
           return(
             <div key={items.id} onClick={()=>{
@@ -176,22 +223,28 @@ const Tab1: React.FC = () => {
             )
         })}
         </IonList>
-          <h3>In-stock</h3>
+          <div>
+            <IonButton color="primary" onClick={()=>request(1)}>Drugs</IonButton> &nbsp;
+            <IonButton  color="primary" onClick={()=>request(2)}>Hospital</IonButton>&nbsp;
+            <IonButton  color="primary" onClick={()=>request(3)}>Kitchen</IonButton>&nbsp;
+          </div>
           <div className="row_cards">
           {viewError}
           <IonList>
             {allData.map((items:any)=>{
+              
               let expiryDate:any = new Date(items.ExpireDate);
               let currentDate:any =new Date();
               let DateSub = expiryDate-currentDate;
-              if(DateSub<2548931590 && DateSub>0){
+            
+              if(DateSub<2548931590 && DateSub>0 && items.Type !== 2){
                 items.ExpireDate = <IonBadge className="textPadding" color="warning"><IonIcon icon={calendar}/>Expiring On {items.ExpireDate}</IonBadge>
               }
 
-              if(TodaysDate>=new Date(items.ExpireDate)){
+              if(TodaysDate>=new Date(items.ExpireDate) && items.Type !== 2){
                 items.ExpireDate = <IonBadge className="textPadding" color="danger"><IonIcon icon={calendar}/>Expired On {items.ExpireDate}</IonBadge>
               }
-              if(TodaysDate<new Date(items.ExpireDate)){
+              if(TodaysDate<new Date(items.ExpireDate) && items.Type !== 2){
                 items.ExpireDate = <IonBadge className="textPadding" color="success"><IonIcon icon={calendar}/>Expiry On {items.ExpireDate}</IonBadge>
               }
 
@@ -205,6 +258,10 @@ const Tab1: React.FC = () => {
 
               if(items.Quantity>10){
                 items.Quantity = <IonBadge color="success"><IonIcon icon={cart}/>{items.Quantity}</IonBadge>
+              }
+
+              if(items.Type == 2){
+                items.ExpireDate = <IonBadge className="textPadding" color="primary">Fixed Asset</IonBadge>
               }
 
               return(

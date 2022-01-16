@@ -16,6 +16,7 @@ const AddNew: React.FC = () => {
   const [viewAlert,setAlert] = useState(false);
   const [product,setProduct] = useState<string>("");
   const [code,setCode] = useState<string>("");
+  const [type,setType] = useState<number>();
   let history:any = useHistory();
   let user:any = localStorage.getItem('user');
   const {register,handleSubmit,formState:{errors}} = useForm({
@@ -31,6 +32,7 @@ const AddNew: React.FC = () => {
     const receiveDate = data.receiveDate;
     const notes = data.notes;
     const code = data.code;
+    const type = data.type;
     localStorage.setItem('name',JSON.stringify(data));
     setProduct(productName);
     if(code==="Yes"){
@@ -46,7 +48,8 @@ const AddNew: React.FC = () => {
         receiveDate:receiveDate,
         code:"None",
         notes:notes,
-        provider:provider
+        provider:provider,
+        type:type
       },
     })
     .then((response:any)=>{
@@ -66,6 +69,7 @@ const AddNew: React.FC = () => {
    ,     "Code":code,
         "Notes":notes,
         "Provider":provider,
+        "type":type
       }
       
       if(localStorage.getItem("Offline") === null){
@@ -108,7 +112,15 @@ const AddNew: React.FC = () => {
         {errors.quantity && <IonBadge color="danger" className="general_padding">Quantity Is required</IonBadge>}
       </div>
       <div className="general_Padding">
-        <IonLabel>Expiry Date</IonLabel>
+        <IonSelect {...register("type",{required:true})} okText="Okay" cancelText="Dismiss" placeholder="Stock Type" value={type} onIonChange={e=>{setType(e.detail.value!)}} className="Ion_Input">
+              <IonSelectOption value={1}>Drugs</IonSelectOption>
+              <IonSelectOption value={3}>Kitchen</IonSelectOption>
+              <IonSelectOption value={2}>Hospital</IonSelectOption>
+          </IonSelect>
+        {errors.receiveDate && <IonBadge color="danger" className="general_padding">Date of receival is required</IonBadge>}
+      </div>
+      <div className="general_Padding">
+        <IonLabel>Expiry Date / Asset Depreciation</IonLabel>
         <IonInput {...register("expire",{required:true})} type="date" id='provider' className="Ion_Input"/>
         {errors.expire && <IonBadge color="danger" className="general_padding">Expiry Date is required</IonBadge>}
        </div>

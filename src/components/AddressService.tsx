@@ -1,1 +1,1 @@
-export const address:string = "http://192.168.1.23/";
+export const address:string = "http://192.168.18.246/";
